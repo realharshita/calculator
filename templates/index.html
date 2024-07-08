@@ -56,6 +56,8 @@
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
+
+
     </style>
 </head>
 <body>
@@ -72,6 +74,14 @@
                 <option value="subtract">Subtract</option>
                 <option value="multiply">Multiply</option>
                 <option value="divide">Divide</option>
+                <option value="sin">Sin</option>
+                <option value="cos">Cos</option>
+                <option value="tan">Tan</option>
+                <option value="pow">Pow</option>
+                <option value="sqrt">Square Root</option>
+                <option value="mod">Modulus</option>
+                <option value="mem_store">Store in Memory</option>
+                <option value="mem_recall">Recall Memory</option>
             </select> <br><br>
             <button type="submit">Calculate</button>
             <button type="button" onclick="clearForm()">Clear</button>
@@ -85,6 +95,9 @@
                 <li>{{ calculation }}</li>
             {% endfor %}
         </ul>
+        <form action="/clear_history" method="get">
+            <button type="submit">Clear History</button>
+        </form>
     </div>
 
     <script>
