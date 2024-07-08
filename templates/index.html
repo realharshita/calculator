@@ -56,8 +56,15 @@
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
-
-
+        @media screen and (max-width: 480px) {
+            .calculator {
+                width: 90%;
+                padding: 10px;
+            }
+            input, select, button {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -68,8 +75,7 @@
         {% endif %}
         <form action="/calculate" method="post">
             <input type="number" name="num1" placeholder="Enter number 1" step="any" required> <br><br>
-            <input type="number" name="num2" placeholder="Enter number 2" step="any" required> <br><br>
-            <select name="operation">
+            <select name="operation" id="operation" onchange="updateInputs()">
                 <option value="add">Add</option>
                 <option value="subtract">Subtract</option>
                 <option value="multiply">Multiply</option>
@@ -79,10 +85,14 @@
                 <option value="tan">Tan</option>
                 <option value="pow">Pow</option>
                 <option value="sqrt">Square Root</option>
+                <option value="log">Log (base 2)</option>
+                <option value="exp">Exponential</option>
+                <option value="factorial">Factorial</option>
                 <option value="mod">Modulus</option>
                 <option value="mem_store">Store in Memory</option>
                 <option value="mem_recall">Recall Memory</option>
             </select> <br><br>
+            <input type="number" name="num2" id="num2" placeholder="Enter number 2" step="any" style="display:none;"> <br><br>
             <button type="submit">Calculate</button>
             <button type="button" onclick="clearForm()">Clear</button>
         </form>
@@ -101,11 +111,27 @@
     </div>
 
     <script>
+        function updateInputs() {
+            var operation = document.getElementById("operation").value;
+            var num2Input = document.getElementById("num2");
+
+            if (operation === "add" || operation === "subtract" || operation === "multiply" || operation === "divide" || operation === "pow" || operation === "mod") {
+                num2Input.style.display = "block";
+                num2Input.setAttribute("required", "true");
+            } else {
+                num2Input.style.display = "none";
+                num2Input.removeAttribute("required");
+            }
+        }
+
         function clearForm() {
             document.getElementsByName("num1")[0].value = "";
             document.getElementsByName("num2")[0].value = "";
             document.getElementsByName("operation")[0].selectedIndex = 0;
         }
+
+        // Initial call to updateInputs on page load
+        updateInputs();
     </script>
 </body>
 </html>
