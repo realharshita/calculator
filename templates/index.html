@@ -4,22 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        form {
+            text-align: center;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-    <h1>Calculator</h1>
-    <form action="/calculate" method="post">
-        <input type="number" name="num1" placeholder="Enter number 1" required step="any"> <br><br>
-        <input type="number" name="num2" placeholder="Enter number 2" required step="any"> <br><br>
-        <select name="operation">
-            <option value="add">Add</option>
-            <option value="subtract">Subtract</option>
-            <option value="multiply">Multiply</option>
-            <option value="divide">Divide</option>
-        </select> <br><br>
-        <button type="submit">Calculate</button>
-    </form>
-    {% if result %}
-    <h2>Result: {{ result }}</h2>
-    {% endif %}
+    <div class="calculator">
+        <h1>Calculator</h1>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form action="/calculate" method="post">
+            <input type="number" name="num1" placeholder="Enter number 1" step="any" required> <br><br>
+            <input type="number" name="num2" placeholder="Enter number 2" step="any" required> <br><br>
+            <select name="operation">
+                <option value="add">Add</option>
+                <option value="subtract">Subtract</option>
+                <option value="multiply">Multiply</option>
+                <option value="divide">Divide</option>
+            </select> <br><br>
+            <button type="submit">Calculate</button>
+            <button type="button" onclick="clearForm()">Clear</button>
+        </form>
+        {% if result is not none %}
+            <h2>Result: {{ result }}</h2>
+        {% endif %}
+        <h2>History</h2>
+        <ul>
+            {% for calculation in history %}
+                <li>{{ calculation }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        function clearForm() {
+            document.getElementsByName("num1")[0].value = "";
+            document.getElementsByName("num2")[0].value = "";
+            document.getElementsByName("operation")[0].selectedIndex = 0;
+        }
+    </script>
 </body>
 </html>
