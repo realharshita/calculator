@@ -26,6 +26,18 @@ body {
     width: 320px;
 }
 
+.display {
+    position: relative;
+}
+
+.small-display {
+    position: absolute;
+    top: -20px;
+    right: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
 #display {
     width: 100%;
     height: 40px;
@@ -52,7 +64,7 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
 button.operation {
@@ -74,5 +86,6 @@ button.equals:hover {
 }
 
 button:active {
+    transform: scale(0.95);
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }

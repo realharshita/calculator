@@ -11,7 +11,10 @@
         <h1>Scientific Calculator</h1>
     </div>
     <div class="calculator">
-        <input type="text" id="display" disabled>
+        <div class="display">
+            <div id="currentCalculation" class="small-display"></div>
+            <input type="text" id="display" disabled>
+        </div>
         <div class="buttons">
             <button onclick="appendNumber(7)">7</button>
             <button onclick="appendNumber(8)">8</button>
@@ -69,12 +72,14 @@
                 num2 += number;
                 document.getElementById('display').value = num2;
             }
+            updateCurrentCalculation();
         }
 
         function setOperation(op) {
             if (num1 !== '') {
                 operation = op;
                 document.getElementById('display').value = '';
+                updateCurrentCalculation();
             }
         }
 
@@ -83,6 +88,7 @@
             num2 = '';
             operation = '';
             document.getElementById('display').value = '';
+            document.getElementById('currentCalculation').innerHTML = '';
         }
 
         function storeMemory() {
@@ -101,6 +107,7 @@
                     num2 = memory;
                     document.getElementById('display').value = num2;
                 }
+                updateCurrentCalculation();
             }
         }
 
@@ -120,12 +127,37 @@
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('display').value = data.result;
-                    num1 = data.result;
+                    document.getElementById('currentCalculation').innerHTML = '';
+                    num1 = '';
                     num2 = '';
                     operation = '';
                 })
                 .catch(error => console.error('Error:', error));
             }
+        }
+
+        function updateCurrentCalculation() {
+            let currentCalculation = num1 + ' ' + (operation !== '' ? getOperationSymbol(operation) : '') + ' ' + num2;
+            document.getElementById('currentCalculation').innerHTML = currentCalculation;
+        }
+
+        function getOperationSymbol(op) {
+            const symbols = {
+                'add': '+',
+                'subtract': '-',
+                'multiply': '*',
+                'divide': '/',
+                'sqrt': '√',
+                'pow': '^',
+                'log': 'log₂',
+                'exp': '2^',
+                'sin': 'sin',
+                'cos': 'cos',
+                'tan': 'tan',
+                'factorial': '!',
+                'mod': '%'
+            };
+            return symbols[op] || '';
         }
     </script>
 </body>
