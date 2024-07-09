@@ -2,12 +2,10 @@ from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-# Homepage route
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# Calculate route
 @app.route('/calculate', methods=['POST'])
 def calculate():
     num1 = float(request.form['num1'])
@@ -28,7 +26,7 @@ def calculate():
         if num2 != 0:
             result = num1 / num2
         else:
-            return 'Error: Division by zero!'
+            return jsonify({'result': 'Error: Division by zero!'})
     elif operation == 'sin':
         import math
         result = math.sin(num1)
@@ -55,16 +53,7 @@ def calculate():
     elif operation == 'mod':
         num2 = float(request.form['num2'])
         result = num1 % num2
-    elif operation == 'mem_store':
-        # Store result in memory or perform other memory operations
-        # Example: You could store result in session or database
-        return 'Memory store operation not implemented'
-    elif operation == 'mem_recall':
-        # Recall memory or perform other memory operations
-        # Example: You could recall result from session or database
-        return 'Memory recall operation not implemented'
 
-    # Return result as JSON
     return jsonify({'result': result})
 
 if __name__ == '__main__':

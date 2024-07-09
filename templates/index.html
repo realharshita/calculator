@@ -3,20 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator App</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .calculator {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .calculator input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .calculator button {
+            width: 23%;
+            padding: 10px;
+            margin: 5px 1%;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #eee;
+            cursor: pointer;
+        }
+        .calculator button.operation {
+            background-color: #ddd;
+        }
+        .calculator button.equals {
+            background-color: #9acd32;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="calculator-form">
-            <h1>Calculator</h1>
-            <div id="calculator-form"></div>
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div>
+            <button onclick="appendNumber(7)">7</button>
+            <button onclick="appendNumber(8)">8</button>
+            <button onclick="appendNumber(9)">9</button>
+            <button class="operation" onclick="setOperation('divide')">/</button>
         </div>
-        <div class="real-calculator">
-            <div id="calculator"></div>
+        <div>
+            <button onclick="appendNumber(4)">4</button>
+            <button onclick="appendNumber(5)">5</button>
+            <button onclick="appendNumber(6)">6</button>
+            <button class="operation" onclick="setOperation('multiply')">*</button>
+        </div>
+        <div>
+            <button onclick="appendNumber(1)">1</button>
+            <button onclick="appendNumber(2)">2</button>
+            <button onclick="appendNumber(3)">3</button>
+            <button class="operation" onclick="setOperation('subtract')">-</button>
+        </div>
+        <div>
+            <button onclick="appendNumber(0)">0</button>
+            <button onclick="clearDisplay()">C</button>
+            <button class="equals" onclick="calculate()">=</button>
+            <button class="operation" onclick="setOperation('add')">+</button>
         </div>
     </div>
 
-    <script src="scripts/calculator.js"></script>
+    <script>
+        let num1 = '';
+        let num2 = '';
+        let operation = '';
+
+        function appendNumber(number) {
+            if (operation === '') {
+                num1 += number;
+                document.getElementById('display').value = num1;
+            } else {
+                num2 += number;
+                document.getElementById('display').value = num2;
+            }
+        }
+
+        function setOperation(op) {
+            if (num1 !== '') {
+                operation = op;
+                document.getElementById('display').value = '';
+            }
+        }
+
+        function clearDisplay() {
+            num1 = '';
+            num2 = '';
+            operation = '';
+            document.getElementById('display').value = '';
+        }
+
+        function calculate() {
+            if (num1 !== '' && (operation !== '' && num2 !== '' || ['sin', 'cos', 'tan', 'sqrt', 'log', 'exp', 'factorial'].includes(operation))) {
+                let formData = new FormData();
+                formData.append('num1', num1);
+                formData.append('operation', operation);
+                if (num2 !== '') {
+                    formData.append('num2', num2);
+                }
+
+                fetch('/calculate', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('display').value = data.result;
+                    num1 = data.result;
+                    num2 = '';
+                    operation = '';
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+    </script>
 </body>
 </html>
