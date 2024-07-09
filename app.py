@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, jsonify
-
+from flask import Flask, render_template, request, jsonify, session
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'
 
 @app.route('/')
 def index():
@@ -53,6 +53,11 @@ def calculate():
     elif operation == 'mod':
         num2 = float(request.form['num2'])
         result = num1 % num2
+    elif operation == 'mem_store':
+        session['memory'] = num1
+        result = num1
+    elif operation == 'mem_recall':
+        result = session.get('memory', 'No value stored')
 
     return jsonify({'result': result})
 
