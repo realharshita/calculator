@@ -65,109 +65,14 @@
                 <button class="operation" onclick="recallMemory()">MR</button>
             </div>
         </div>
+        <div class="graph-container">
+            <input type="text" id="function" placeholder="Enter function y = f(x)" />
+            <button onclick="plotFunction()">Plot</button>
+            <canvas id="graph"></canvas>
+        </div>
     </div>
 
-    <script>
-        let num1 = '';
-        let num2 = '';
-        let operation = '';
-        let memory = '';
-
-        function appendNumber(number) {
-            if (operation === '') {
-                num1 += number;
-                document.getElementById('display').value = num1;
-            } else {
-                num2 += number;
-                document.getElementById('display').value = num2;
-            }
-            updateCurrentCalculation();
-        }
-
-        function setOperation(op) {
-            if (num1 !== '') {
-                operation = op;
-                document.getElementById('display').value = '';
-                updateCurrentCalculation();
-            }
-        }
-
-        function clearDisplay() {
-            num1 = '';
-            num2 = '';
-            operation = '';
-            document.getElementById('display').value = '';
-            document.getElementById('currentCalculation').innerHTML = '';
-        }
-
-        function storeMemory() {
-            if (num1 !== '') {
-                memory = num1;
-                alert('Value stored in memory.');
-            }
-        }
-
-        function recallMemory() {
-            if (memory !== '') {
-                if (operation === '') {
-                    num1 = memory;
-                    document.getElementById('display').value = num1;
-                } else {
-                    num2 = memory;
-                    document.getElementById('display').value = num2;
-                }
-                updateCurrentCalculation();
-            }
-        }
-
-        function calculate() {
-            if (num1 !== '' && (operation !== '' && num2 !== '' || ['sin', 'cos', 'tan', 'sqrt', 'log', 'exp', 'factorial'].includes(operation))) {
-                let formData = new FormData();
-                formData.append('num1', num1);
-                formData.append('operation', operation);
-                if (num2 !== '') {
-                    formData.append('num2', num2);
-                }
-
-                fetch('/calculate', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('display').value = data.result;
-                    document.getElementById('currentCalculation').innerHTML = '';
-                    num1 = '';
-                    num2 = '';
-                    operation = '';
-                })
-                .catch(error => console.error('Error:', error));
-            }
-        }
-
-        function updateCurrentCalculation() {
-            let currentCalculation = num1 + ' ' + (operation !== '' ? getOperationSymbol(operation) : '') + ' ' + num2;
-            document.getElementById('currentCalculation').innerHTML = currentCalculation;
-        }
-
-        function getOperationSymbol(op) {
-            const symbols = {
-                'add': '+',
-                'subtract': '-',
-                'multiply': '*',
-                'divide': '/',
-                'sqrt': '√',
-                'pow': '^',
-                'log': 'log₂',
-                'exp': '2^',
-                'sin': 'sin',
-                'cos': 'cos',
-                'tan': 'tan',
-                'factorial': '!',
-                'mod': '%'
-            };
-            return symbols[op] || '';
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

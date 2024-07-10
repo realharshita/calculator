@@ -50,10 +50,35 @@ body {
 
 .container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
     padding: 20px;
+}
+
+.calculator {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 320px;
+    margin-right: 20px;
+}
+
+.graph-container {
+    flex-grow: 1;
+}
+
+#graph {
+    width: 500px;
+    height: 500px;
+}
+
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
 }
 
 .header {
@@ -66,13 +91,7 @@ body {
     color: #333;
 }
 
-.calculator {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 320px;
-}
+
 
 .display {
     position: relative;
@@ -136,4 +155,23 @@ button.equals:hover {
 button:active {
     transform: scale(0.95);
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.function-input {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.function-input input {
+    width: calc(100% - 60px);
+    padding: 5px;
+    font-size: 16px;
+}
+
+.function-input button {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
 }
