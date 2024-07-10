@@ -218,3 +218,44 @@ function updateGraph(points) {
     chart.data.datasets[0].data = points;
     chart.update();
 }
+
+
+
+const helpModal = document.getElementById('helpModal');
+const helpButton = document.getElementById('helpButton');
+const closeHelp = document.getElementsByClassName('close')[0];
+
+helpButton.onclick = function() {
+    helpModal.style.display = 'block';
+}
+
+closeHelp.onclick = function() {
+    helpModal.style.display = 'none';
+}
+
+function changeTheme() {
+    const theme = document.getElementById('themeSelector').value;
+    document.body.className = theme;
+    localStorage.setItem('calculatorTheme', theme);
+}
+
+function changeFontSize() {
+    const fontSize = document.getElementById('fontSizeRange').value + 'px';
+    document.getElementById('display').style.fontSize = fontSize;
+    localStorage.setItem('fontSize', fontSize);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('calculatorTheme');
+    const savedFontSize = localStorage.getItem('fontSize');
+    
+    if (savedTheme) {
+        document.body.className = savedTheme;
+        document.getElementById('themeSelector').value = savedTheme;
+    }
+    
+    if (savedFontSize) {
+        document.getElementById('display').style.fontSize = savedFontSize;
+        document.getElementById('fontSizeRange').value = parseInt(savedFontSize);
+    }
+});

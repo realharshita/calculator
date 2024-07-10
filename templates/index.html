@@ -70,6 +70,28 @@
             <button onclick="plotFunction()">Plot</button>
             <canvas id="graph"></canvas>
         </div>
+            <div id="helpModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Calculator Help</h2>
+                    <p>Basic operations: Use the buttons to perform addition, subtraction, multiplication, and division.</p>
+                    <p>Memory functions: Store values using MS and recall them using MR.</p>
+                    <p>Advanced functions: Try functions like sqrt for square root, x^y for exponentiation, and more.</p>
+                    <p>For keyboard users: Use the number keys and operators to perform calculations.</p>
+                </div>
+            </div>
+
+            <div id="settingsPanel" class="settings-panel">
+                <h2>Settings</h2>
+                <label for="themeSelector">Choose Theme:</label>
+                <select id="themeSelector" onchange="changeTheme()">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+                <label for="fontSizeRange">Font Size:</label>
+                <input type="range" id="fontSizeRange" min="12" max="24" value="16" onchange="changeFontSize()">
+            </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
