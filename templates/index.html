@@ -7,54 +7,63 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="header">
-        <h1>Scientific Calculator</h1>
-    </div>
-    <div class="calculator">
-        <div class="display">
-            <div id="currentCalculation" class="small-display"></div>
-            <input type="text" id="display" disabled>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="navbar-brand">Calculator</a>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+            </ul>
         </div>
-        <div class="buttons">
-            <button onclick="appendNumber(7)">7</button>
-            <button onclick="appendNumber(8)">8</button>
-            <button onclick="appendNumber(9)">9</button>
-            <button class="operation" onclick="setOperation('divide')">/</button>
-            <button class="operation" onclick="setOperation('sqrt')">√</button>
-        </div>
-        <div class="buttons">
-            <button onclick="appendNumber(4)">4</button>
-            <button onclick="appendNumber(5)">5</button>
-            <button onclick="appendNumber(6)">6</button>
-            <button class="operation" onclick="setOperation('multiply')">*</button>
-            <button class="operation" onclick="setOperation('pow')">x<sup>y</sup></button>
-        </div>
-        <div class="buttons">
-            <button onclick="appendNumber(1)">1</button>
-            <button onclick="appendNumber(2)">2</button>
-            <button onclick="appendNumber(3)">3</button>
-            <button class="operation" onclick="setOperation('subtract')">-</button>
-            <button class="operation" onclick="setOperation('log')">log<sub>2</sub></button>
-        </div>
-        <div class="buttons">
-            <button onclick="appendNumber(0)">0</button>
-            <button onclick="clearDisplay()">C</button>
-            <button class="operation" onclick="setOperation('add')">+</button>
-            <button class="operation" onclick="setOperation('exp')">2<sup>x</sup></button>
-        </div>
-        <div class="buttons">
-            <button class="equals" onclick="calculate()">=</button>
-        </div>
-        <div class="buttons">
-            <button class="operation" onclick="setOperation('sin')">sin</button>
-            <button class="operation" onclick="setOperation('cos')">cos</button>
-            <button class="operation" onclick="setOperation('tan')">tan</button>
-            <button class="operation" onclick="setOperation('factorial')">x!</button>
-            <button class="operation" onclick="setOperation('mod')">%</button>
-        </div>
-        <div class="buttons">
-            <button class="operation" onclick="storeMemory()">MS</button>
-            <button class="operation" onclick="recallMemory()">MR</button>
+    </nav>
+    <div class="container">
+        <div class="calculator">
+            <div class="display">
+                <div id="currentCalculation" class="small-display"></div>
+                <input type="text" id="display" disabled>
+            </div>
+            <div class="buttons">
+                <button onclick="appendNumber(7)">7</button>
+                <button onclick="appendNumber(8)">8</button>
+                <button onclick="appendNumber(9)">9</button>
+                <button class="operation" onclick="setOperation('divide')">/</button>
+                <button class="operation" onclick="setOperation('sqrt')">√</button>
+            </div>
+            <div class="buttons">
+                <button onclick="appendNumber(4)">4</button>
+                <button onclick="appendNumber(5)">5</button>
+                <button onclick="appendNumber(6)">6</button>
+                <button class="operation" onclick="setOperation('multiply')">*</button>
+                <button class="operation" onclick="setOperation('pow')">x<sup>y</sup></button>
+            </div>
+            <div class="buttons">
+                <button onclick="appendNumber(1)">1</button>
+                <button onclick="appendNumber(2)">2</button>
+                <button onclick="appendNumber(3)">3</button>
+                <button class="operation" onclick="setOperation('subtract')">-</button>
+                <button class="operation" onclick="setOperation('log')">log<sub>2</sub></button>
+            </div>
+            <div class="buttons">
+                <button onclick="appendNumber(0)">0</button>
+                <button onclick="clearDisplay()">C</button>
+                <button class="operation" onclick="setOperation('add')">+</button>
+                <button class="operation" onclick="setOperation('exp')">2<sup>x</sup></button>
+            </div>
+            <div class="buttons">
+                <button class="equals" onclick="calculate()">=</button>
+            </div>
+            <div class="buttons">
+                <button class="operation" onclick="setOperation('sin')">sin</button>
+                <button class="operation" onclick="setOperation('cos')">cos</button>
+                <button class="operation" onclick="setOperation('tan')">tan</button>
+                <button class="operation" onclick="setOperation('factorial')">x!</button>
+                <button class="operation" onclick="setOperation('mod')">%</button>
+            </div>
+            <div class="buttons">
+                <button class="operation" onclick="storeMemory()">MS</button>
+                <button class="operation" onclick="recallMemory()">MR</button>
+            </div>
         </div>
     </div>
 
